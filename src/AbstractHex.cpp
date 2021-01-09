@@ -2,23 +2,15 @@
 #include <iostream>
 
 using namespace std;
-namespace HexOguz
+using namespace HexOguz;
+
+AbstractHex::AbstractHex()
 {
-
-    AbstractHex::AbstractHex()
-    {
-        cout << "Created" << endl;
-    }
-
-    void AbstractHex::reset()
-    {
-        cout << "sa" << endl;
-    }
+    cout << "Created" << endl;
 }
 
-int main(void)
+void AbstractHex::reset()
 {
-    HexOguz::AbstractHex a;
-    a.reset();
-    return 0;
+    cout << "sa" << endl;
 }
+
