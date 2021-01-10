@@ -25,10 +25,10 @@ namespace HexOguz
         virtual void print() const = 0;
 
         // Read from file
-        //virtual void readFromFile() = 0;
+        virtual void readFromFile(std::string) = 0;
         
         // Write to file
-        //virtual void writeToFile() = 0;
+        virtual void writeToFile(std::string) = 0;
 
         // Resets board from the beginning.
         virtual void reset() = 0;

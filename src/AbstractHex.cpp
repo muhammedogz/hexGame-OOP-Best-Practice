@@ -30,4 +30,17 @@ void AbstractHex::Welcome()
         cin.ignore(100,'\n');
         cin >> gameType;
     }
+
+    if (size < 6)
+    {
+        while(size < 6)
+        {
+            cout << "\nNow select table size. min 6 allowed." << endl
+            << "Select (for 6x6 table, type 6):";
+            cin >> size; if (size > 5) break;
+            cerr << "Your input is invalid" << endl << "Enter Again:";
+            cin.clear();
+            cin.ignore(100,'\n');
+        }
+    }
 }

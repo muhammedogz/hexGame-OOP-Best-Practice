@@ -6,9 +6,11 @@ using namespace HexOguz;
 int main(void)
 {
    HexVector foo(5);
-   foo.Welcome();
-   foo.reset();
+   foo.playGame();
+   foo.readFromFile("test/test0.txt");
    foo.print();
-   foo.setSize(15);
+   foo.playGame();
+   foo.setSize(10);
    foo.print();
+  
 }

@@ -10,8 +10,10 @@
 
 #include "AbstractHex.h"
 #include <vector>
+#include <iostream>
 
 using std::vector;
+using std::string;
 
 namespace HexOguz
 {
@@ -22,9 +24,13 @@ namespace HexOguz
         HexVector();
         HexVector(int);
 
+
+        void createTable();
+        void playGame();
+
         void print() const override;
-        // void readFromFile() override;
-        // void writeToFile() override;
+        void readFromFile(string) override;
+        void writeToFile(string) override;
         void reset() override;
         void setSize(int) override;
         // bool isEnd() override const;
