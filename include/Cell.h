@@ -20,6 +20,8 @@ namespace HexOguz
     {
         public:
         Cell();
+        Cell(int,int,char);
+        void print() const;
 
         // implemented as inline. 
         void setRow(int setRow);

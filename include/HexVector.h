@@ -25,16 +25,14 @@ namespace HexOguz
         HexVector(int);
 
 
-        void createTable();
         void playGame();
-        bool checkTurn(string, Cell&);
+        
 
         void print() const override;
         void readFromFile(string) override;
         void writeToFile(string) override;
         void reset() override;
         void setSize(int) override;
-        // bool isEnd() override const;
         void play() override; 
         void play(Cell) override; 
         // bool operator==(AbstractHex&) const override;
@@ -45,6 +43,21 @@ namespace HexOguz
         private:
         vector<vector<Cell>> hexCells;
         vector<vector<Cell>> keepUppercase;
+
+
+        // Check winner Helper Functions.
+        bool checkWinner();
+        bool check(int,int);
+        bool isValid(int,int);
+
+        // After game is ended. Convert Winning path to UpperCase
+        void copyToUpper();
+
+        // check entered command
+        bool checkCommand(string, Cell&);
+
+        // create empty table
+        void createTable();
 
     };
 

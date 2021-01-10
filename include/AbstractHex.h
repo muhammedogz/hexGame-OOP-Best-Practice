@@ -41,8 +41,8 @@ namespace HexOguz
         // play PVP
         virtual void play(Cell) = 0; 
 
-        // // Returns true if game is ended.
-        // virtual bool isEnd() const = 0;
+        // Returns true if game is ended.
+        bool isEnd();
 
         // // return true if both board equal.
         // virtual bool operator==(AbstractHex&) const = 0;
@@ -51,10 +51,10 @@ namespace HexOguz
         // virtual Cell operator()(int,int) const = 0;
 
         // // Returns last move, If there is not than throws an exception.
-        // virtual Cell lastMove() const = 0;
+        inline Cell lastMove()                   {return moveLast;}
 
         // returns number of move made so far
-        inline int numberOfMoves() const         {return this->totalMove;}
+        inline int numberOfMoves() const         {return totalMove;}
 
         // Following functions are not part of Homework Instructions
         void Welcome();
@@ -70,6 +70,9 @@ namespace HexOguz
         inline void setGameState(int gameState) {this->gameState = gameState;}
         inline int getGameState() const         {return gameState;}
         inline void setTotalMove(int totalMove) {this->totalMove = totalMove;}
+        inline static int getActiveGames()      {return activeGames;}
+        inline static int getAlLGames()         {return allGames;}
+        
         
         
         // Params that every derived class will had. So it is protected. 
@@ -79,6 +82,11 @@ namespace HexOguz
             int gameType = 0; // keep game type
             char turn = player1; // keep player type
             int gameState = active; // keep game status
+
+            Cell moveLast;
+            // for track games
+            static int activeGames;
+            static int allGames;
     };
 
 } // Namespace

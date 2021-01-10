@@ -6,10 +6,22 @@ using namespace std;
 using namespace HexOguz;
 
 AbstractHex::AbstractHex(): size(0), totalMove(0), gameType(0), turn(player1), gameState(active)
-{}
+{
+    activeGames++;
+    allGames++;
+}
 
 AbstractHex::AbstractHex(int a): size(a), totalMove(0), gameType(0), turn(player1), gameState(active)
-{}
+{
+    activeGames++;
+    allGames++;
+}
+
+bool AbstractHex::isEnd()
+{
+    if (gameState == winner) return true;
+    else                     return false;
+}
 
 void AbstractHex::Welcome()
 {
@@ -52,6 +64,7 @@ void AbstractHex::allCommands() const
     << "[Coordinate]: your coordinate e.g -> A5" << endl
     << "[SAVE] [filename] " << endl <<  "[LOAD] [filename]" << endl 
     <<  "   Save or Load your game e.g -> SAVE myGame.txt" << endl
+    << "[LAST] -> Show last move position and state" << endl
     << "[Q] -> Quit current active game." << endl
     << "[P] -> Print currnet Hex table" << endl
     << "[H] -> See this help massage" << endl << endl;
@@ -62,12 +75,12 @@ bool AbstractHex::saveOrLoad(string str)
     // look to type of command
     if(str.compare(0, 4, "SAVE", 0 ,4) == 0 && str.size() > 5)
     {
-        readFromFile(str.substr(5));
+        writeToFile(str.substr(5));
         return 1;
     }
     else if(str.compare(0, 4, "LOAD", 0 ,4) == 0 && str.size() > 5)
     {
-        writeToFile(str.substr(5));
+        readFromFile(str.substr(5));
         return 0;
     }
 
