@@ -18,51 +18,65 @@ namespace HexOguz
     class AbstractHex
     {
         public:
-        // Default constructor
-        AbstractHex(); 
-
-        // Resets board from the beginning.
-        void reset();
-
-        // Returns true if game is ended.
-        bool isEnd();
-
-        // Returns last move, If there is not than throws an exception.
-        Cell lastMove();
-
-        // play with CPU
-        Cell play(); 
-        // play PVP
-        Cell play(Cell); 
+        AbstractHex();
+        AbstractHex(int);
 
         // Print Function 
-        void print();
+        virtual void print() const = 0;
+
         // Read from file
-        void readFromFile();
+        //virtual void readFromFile() = 0;
+        
         // Write to file
-        void writeToFile();
+        //virtual void writeToFile() = 0;
 
-        // return true if both board equal.
-        bool operator==(AbstractHex&);
+        // Resets board from the beginning.
+        virtual void reset() = 0;
 
-        // return Cell of given indexes
-        Cell operator()(int,int);
+        // set Size and Reset
+        virtual void setSize(int) = 0;
+
+        // // play with CPU
+        // virtual Cell play() = 0; 
+        // // play PVP
+        // virtual Cell play(Cell) = 0; 
+
+        // // Returns true if game is ended.
+        // virtual bool isEnd() const = 0;
+
+        // // return true if both board equal.
+        // virtual bool operator==(AbstractHex&) const = 0;
+
+        // // return Cell of given indexes
+        // virtual Cell operator()(int,int) const = 0;
+
+        // // Returns last move, If there is not than throws an exception.
+        // virtual Cell lastMove() const = 0;
 
         // returns number of move made so far
-        int numberOfMoves(){return this->totalMoves;}
+        inline int numberOfMoves() const         {return this->totalMove;}
+
+        // Following functions are not part of Homework Instructions
+        void Welcome();
 
         // Oneline setters and getters implemented.
-        void setSize(int size){this->size = size;}
-        int getSize(){return size;}
+        inline int getSize() const              {return size;}
+        inline void setGameType(int gameType)   {this->gameType = gameType;}
+        inline int getGameType() const          {return gameType;}
+        inline void setTurn(char turn)          {this->turn = turn;}
+        inline char getType() const             {return turn;}
+        inline void setGameState(int gameState) {this->gameState = gameState;}
+        inline int getGameState() const         {return gameState;}
+        inline void setTotalMove(int totalMove) {this->totalMove = totalMove;}
+        
         
         // Params that every derived class will had. So it is protected. 
         protected:
             int size; // represents hex board size. 
-            int totalMoves = 0; // track number of moves. 
+            int totalMove = 0; // track number of moves. 
             int gameType = 0; // keep game type
             char turn = player1; // keep player type
             int gameState = active; // keep game status
-
     };
 
 } // Namespace

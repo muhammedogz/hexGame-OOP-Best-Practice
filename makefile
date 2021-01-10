@@ -1,6 +1,6 @@
 CC = g++ -std=c++11
 CFLAGS = -Wall -Wextra
-OBJS = src/AbstractHex.cpp src/Cell.cpp main.cpp
+OBJS = src/AbstractHex.cpp src/HexVector.cpp src/Cell.cpp main.cpp
 
 muo: 
 	$(CC) $(OBJS) $(CFLAGS) -o output

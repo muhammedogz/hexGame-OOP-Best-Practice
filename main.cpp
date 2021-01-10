@@ -1,11 +1,14 @@
 #include <iostream>
-#include "include/AbstractHex.h"
+#include "include/HexVector.h"
 
 using namespace HexOguz;
 
 int main(void)
 {
-    AbstractHex a;
-    a.reset();
-    return 0;
+   HexVector foo(5);
+   foo.Welcome();
+   foo.reset();
+   foo.print();
+   foo.setSize(15);
+   foo.print();
 }

@@ -4,13 +4,30 @@
 using namespace std;
 using namespace HexOguz;
 
-AbstractHex::AbstractHex()
-{
-    cout << "Created" << endl;
-}
+AbstractHex::AbstractHex(): size(0), totalMove(0), gameType(0), turn(player1), gameState(active)
+{}
 
-void AbstractHex::reset()
-{
-    cout << "sa" << endl;
-}
+AbstractHex::AbstractHex(int a): size(a), totalMove(0), gameType(0), turn(player1), gameState(active)
+{}
 
+void AbstractHex::Welcome()
+{
+    cout << endl << endl
+    << "First Select the game type you want from following." << endl
+    << "1- P vs P \n2- P vs CPU"  << endl
+    << "Enter your choice:";
+
+    if (gameType == 0)
+        cin >> gameType;
+    else
+        cout << gameType << " (entered from constructor)" << endl;
+
+    // prevent false size or entering a char.
+    while(gameType != PvP && gameType != PvCPU)
+    {
+        cerr << "Your input is invalid" << endl << "Enter Again:";
+        cin.clear();
+        cin.ignore(100,'\n');
+        cin >> gameType;
+    }
+}
