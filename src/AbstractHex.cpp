@@ -1,6 +1,7 @@
 #include "../include/AbstractHex.h"
 #include <iostream>
 
+
 using namespace std;
 using namespace HexOguz;
 
@@ -43,4 +44,32 @@ void AbstractHex::Welcome()
             cin.ignore(100,'\n');
         }
     }
+}
+
+void AbstractHex::allCommands() const
+{
+    cout << endl << endl <<  "Commands List" << endl
+    << "[Coordinate]: your coordinate e.g -> A5" << endl
+    << "[SAVE] [filename] " << endl <<  "[LOAD] [filename]" << endl 
+    <<  "   Save or Load your game e.g -> SAVE myGame.txt" << endl
+    << "[Q] -> Quit current active game." << endl
+    << "[P] -> Print currnet Hex table" << endl
+    << "[H] -> See this help massage" << endl << endl;
+}
+
+bool AbstractHex::saveOrLoad(string str)
+{
+    // look to type of command
+    if(str.compare(0, 4, "SAVE", 0 ,4) == 0 && str.size() > 5)
+    {
+        readFromFile(str.substr(5));
+        return 1;
+    }
+    else if(str.compare(0, 4, "LOAD", 0 ,4) == 0 && str.size() > 5)
+    {
+        writeToFile(str.substr(5));
+        return 0;
+    }
+
+    return 0;
 }

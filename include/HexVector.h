@@ -27,6 +27,7 @@ namespace HexOguz
 
         void createTable();
         void playGame();
+        bool checkTurn(string, Cell&);
 
         void print() const override;
         void readFromFile(string) override;
@@ -34,8 +35,8 @@ namespace HexOguz
         void reset() override;
         void setSize(int) override;
         // bool isEnd() override const;
-        // Cell play() override; 
-        // Cell play(Cell) override; 
+        void play() override; 
+        void play(Cell) override; 
         // bool operator==(AbstractHex&) const override;
         // Cell operator()(int,int) const override;
         // Cell lastMove() const override;

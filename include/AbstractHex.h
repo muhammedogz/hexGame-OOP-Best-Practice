@@ -36,10 +36,10 @@ namespace HexOguz
         // set Size and Reset
         virtual void setSize(int) = 0;
 
-        // // play with CPU
-        // virtual Cell play() = 0; 
-        // // play PVP
-        // virtual Cell play(Cell) = 0; 
+        // play with CPU
+        virtual void play() = 0; 
+        // play PVP
+        virtual void play(Cell) = 0; 
 
         // // Returns true if game is ended.
         // virtual bool isEnd() const = 0;
@@ -58,6 +58,8 @@ namespace HexOguz
 
         // Following functions are not part of Homework Instructions
         void Welcome();
+        void allCommands() const;
+        bool saveOrLoad(std::string);
 
         // Oneline setters and getters implemented.
         inline int getSize() const              {return size;}
