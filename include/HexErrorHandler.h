@@ -4,6 +4,7 @@
 * This header represents a error class for Hex classes.
 
 */
+
 #ifndef HEXERRORHANDLER_H
 #define HEXERRORHANDLER_H
 

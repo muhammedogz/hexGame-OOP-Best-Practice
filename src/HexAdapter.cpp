@@ -1,25 +1,30 @@
-#include "../include/HexVector.h"
+#include "../include/HexAdapter.h"
 #include <iostream>
 #include <random>
 
-using namespace std;
+
 using namespace HexOguz;
+using namespace std;
 
-HexVector::HexVector(): AbstractHex(0)
+
+template<template<typename...> class T>
+HexAdapter<T>::HexAdapter(): AbstractHex()
 {
     Welcome();
     createTable();
     playGame();
 }
 
-HexVector::HexVector(int size): AbstractHex(size)
+template<template<typename...> class T>
+HexAdapter<T>::HexAdapter(int size):  AbstractHex(size)
 {
     Welcome();
     createTable();
     playGame();
 }
 
-void HexVector::print() const
+template<template<typename...> class T>
+void HexAdapter<T>::print() const
 {
     // these things just showing a beautiful table. 
     cout << "  ";
@@ -40,35 +45,37 @@ void HexVector::print() const
     }
 }
 
-void HexVector::reset()
+template<template<typename...> class T>
+void HexAdapter<T>::reset()
 {
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
             hexCells[i][j].setState(dot);
 }
 
-void HexVector::createTable()
+template<template<typename...> class T>
+void HexAdapter<T>::createTable()
 {
-    for (int i = 0; i < size; i++)
-    {
-        hexCells.push_back(vector<Cell>());
-        keepUppercase.push_back(vector<Cell>());
-        for (int j = 0; j < size; j++)
-        {
-            hexCells[i].push_back(Cell());
-            keepUppercase[i].push_back(Cell());
-        }
+    hexCells.resize(size);
+    keepUppercase.resize(size);
+    for(int i = 0; i < size; i++)
+    {       
+        hexCells[i].resize(size);
+        keepUppercase[i].resize(size);
     }
+            
 }
 
-void HexVector::setSize(int size)
+template<template<typename...> class T>
+void HexAdapter<T>::setSize(int size)
 {
     this->size = size;
     createTable();
     reset();
 }
 
-void HexVector::readFromFile(string filename) // throw (HexErrorHandler)
+template<template<typename...> class T>
+void HexAdapter<T>::readFromFile(string filename) // throw (HexErrorHandler)
 {
     // rading mode
 	ifstream fp(filename);
@@ -114,7 +121,8 @@ void HexVector::readFromFile(string filename) // throw (HexErrorHandler)
 
 }
 
-void HexVector::writeToFile(string filename) // throw (HexErrorHandler)
+template<template<typename...> class T>
+void HexAdapter<T>::writeToFile(string filename) // throw (HexErrorHandler)
 {
     // writing mode
 	ofstream fp(filename);
@@ -135,12 +143,14 @@ void HexVector::writeToFile(string filename) // throw (HexErrorHandler)
 	fp.close();  return;
 }
 
-Cell HexVector::operator()(int column, int row) const
+template<template<typename...> class T>
+Cell HexAdapter<T>::operator()(int column, int row) const
 {
     return hexCells[column][row];
 }
 
-void HexVector::play()
+template<template<typename...> class T>
+void HexAdapter<T>::play()
 {
     totalMove++;
     // CPU plays random
@@ -163,7 +173,8 @@ void HexVector::play()
     print();
 }
 
-void HexVector::play(Cell position)
+template<template<typename...> class T>
+void HexAdapter<T>::play(Cell position)
 {
     totalMove++;
     turn = position.getState();
@@ -172,7 +183,8 @@ void HexVector::play(Cell position)
     print();
 }
 
-void HexVector::playGame()
+template<template<typename...> class T>
+void HexAdapter<T>::playGame()
 {
     Welcome();
     createTable();
@@ -210,7 +222,8 @@ void HexVector::playGame()
         copyToUpper();
 }
 
-bool HexVector::checkCommand(string coordinate, Cell& tempCell)
+template<template<typename...> class T>
+bool HexAdapter<T>::checkCommand(string coordinate, Cell& tempCell)
 {
     cout << endl << "Your Turn " << tempCell.getState() << endl;
     cout << "Type H for all Commands" << endl << "Command: ";
@@ -289,7 +302,8 @@ bool HexVector::checkCommand(string coordinate, Cell& tempCell)
     }
 }
 
-bool HexVector::checkWinner()
+template<template<typename...> class T>
+bool HexAdapter<T>::checkWinner()
 {
     int x = 0, y = 0;
     // if player is x then every time look for
@@ -325,7 +339,8 @@ bool HexVector::checkWinner()
     return false;
 }
 
-bool HexVector::check(int x, int y)
+template<template<typename...> class T>
+bool HexAdapter<T>::check(int x, int y)
 {
     if (turn == player1)
     {
@@ -374,7 +389,8 @@ bool HexVector::check(int x, int y)
     return false; 
 }
 
-bool HexVector::isValid(int x, int y)
+template<template<typename...> class T>
+bool HexAdapter<T>::isValid(int x, int y)
 {
     // if this field is valid return true
     if (x >= 0 && x < size && y >= 0 && y < size && hexCells[x][y].getState() == turn)
@@ -383,7 +399,8 @@ bool HexVector::isValid(int x, int y)
     return false; 
 }
 
-void HexVector::copyToUpper()
+template<template<typename...> class T>
+void HexAdapter<T>::copyToUpper()
 {
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
