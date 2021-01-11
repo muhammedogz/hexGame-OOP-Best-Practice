@@ -34,10 +34,10 @@ bool AbstractHex::operator==(const AbstractHex& right) const
     return true; 
 }
 
-Cell AbstractHex::lastMove()
+Cell AbstractHex::lastMove() // throw (HexErrorHandler)
 {
     if (moveLast.getState() == '.')
-        cout << "it will throw exception " << endl;
+        throw(HexErrorHandler("Couldn't show last move. (Probably there is not any)\n"));
     return moveLast;
 }
 
@@ -88,7 +88,7 @@ void AbstractHex::allCommands() const
     << "[H] -> See this help massage" << endl << endl;
 }
 
-bool AbstractHex::saveOrLoad(string str)
+bool AbstractHex::saveOrLoad(string str) // throw (HexErrorHandler)
 {
     // look to type of command
     if(str.compare(0, 4, "SAVE", 0 ,4) == 0 && str.size() > 5)
