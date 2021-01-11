@@ -44,14 +44,14 @@ namespace HexOguz
         // Returns true if game is ended.
         bool isEnd();
 
-        // // return true if both board equal.
-        // virtual bool operator==(AbstractHex&) const = 0;
+        // return true if both board equal.
+        bool operator==(const AbstractHex&) const;
 
-        // // return Cell of given indexes
-        // virtual Cell operator()(int,int) const = 0;
+        // return Cell of given indexes
+        virtual Cell operator()(int,int) const = 0;
 
-        // // Returns last move, If there is not than throws an exception.
-        inline Cell lastMove()                   {return moveLast;}
+        // Returns last move, If there is not than throws an exception.
+        Cell lastMove();
 
         // returns number of move made so far
         inline int numberOfMoves() const         {return totalMove;}

@@ -35,9 +35,8 @@ namespace HexOguz
         void setSize(int) override;
         void play() override; 
         void play(Cell) override; 
+        Cell operator()(int,int) const override;
         // bool operator==(AbstractHex&) const override;
-        // Cell operator()(int,int) const override;
-        // Cell lastMove() const override;
 
 
         private:

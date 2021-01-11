@@ -134,6 +134,11 @@ void HexVector::writeToFile(string filename)
 	fp.close();  return;
 }
 
+Cell HexVector::operator()(int column, int row) const
+{
+    return hexCells[column][row];
+}
+
 void HexVector::play()
 {
     totalMove++;

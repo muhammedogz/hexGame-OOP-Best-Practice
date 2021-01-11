@@ -23,6 +23,24 @@ bool AbstractHex::isEnd()
     else                     return false;
 }
 
+bool AbstractHex::operator==(const AbstractHex& right) const
+{
+    if (this->size != right.size)
+        return false;
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < size; j++)
+           if(this->operator()(i,j).getState() != right(i,j).getState())
+                return false;
+    return true; 
+}
+
+Cell AbstractHex::lastMove()
+{
+    if (moveLast.getState() == '.')
+        cout << "it will throw exception " << endl;
+    return moveLast;
+}
+
 void AbstractHex::Welcome()
 {
     cout << endl << endl
