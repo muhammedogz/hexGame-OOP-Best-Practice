@@ -64,14 +64,13 @@ void HexVector::setSize(int size)
     reset();
 }
 
-void HexVector::readFromFile(string filename)
+void HexVector::readFromFile(string filename) // throw (HexErrorHandler)
 {
     // rading mode
 	ifstream fp(filename);
 	if(fp.is_open() == false)
-    {
-		cerr << "Couldn't open file.\n";  return;
-	}
+        throw (HexErrorHandler("Couldn't open file.\n"));
+
 
     // keep old gameType 
     int tempType = gameType;
@@ -111,14 +110,12 @@ void HexVector::readFromFile(string filename)
 
 }
 
-void HexVector::writeToFile(string filename)
+void HexVector::writeToFile(string filename) // throw (HexErrorHandler)
 {
     // writing mode
 	ofstream fp(filename);
 	if(fp.is_open() == false)
-    {
-		cerr << "Could not open the file\n";  return;
-	}
+        throw (HexErrorHandler("Couldn't open file.\n"));
 
     // write those to file
 	fp << gameType << endl << size << endl << turn << endl;
@@ -232,8 +229,16 @@ bool HexVector::checkCommand(string coordinate, Cell& tempCell)
     }
     else if (coordinate == "LAST" && coordinate.length() == 4)
     {
-        cout << "Last move ->"; 
-        lastMove().print();
+        try
+        {
+            cout << "Last move ->"; 
+            lastMove().print();
+        }
+        catch(const HexErrorHandler& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
         return checkCommand(coordinate, tempCell);
     }
     else if (coordinate[0] == 'P' && coordinate.length() == 1)
@@ -241,11 +246,22 @@ bool HexVector::checkCommand(string coordinate, Cell& tempCell)
         print();
         return checkCommand(coordinate, tempCell);
     }
-    if (saveOrLoad(coordinate))
-        return true;
-
+    
+    try
+    {
+        if (saveOrLoad(coordinate))
+        {
+            return true;
+        }
+    }
+    catch(const HexErrorHandler& e)
+    {
+        std::cerr << e.what() << '\n';
+        return checkCommand(coordinate, tempCell);
+    }
+        
     // in load circumstance, this func should return false.
-    else if(coordinate.compare(0, 4, "LOAD", 0 ,4) == 0 && coordinate.size() > 5) 
+    if(coordinate.compare(0, 4, "LOAD", 0 ,4) == 0 && coordinate.size() > 5) 
         return false;
     else
     {

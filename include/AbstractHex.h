@@ -8,9 +8,9 @@
 #ifndef ABSTRACTHEX_H
 #define ABSTRACTHEX_H
 
-#include <ostream> // for friend functions
-#include <fstream>
 #include "Cell.h"
+#include <string>
+#include "../include/HexErrorHandler.h"
 
 namespace HexOguz
 {
@@ -51,7 +51,8 @@ namespace HexOguz
         virtual Cell operator()(int,int) const = 0;
 
         // Returns last move, If there is not than throws an exception.
-        Cell lastMove();
+        Cell lastMove(); // throw(HexErrorHandler) 
+        // Since "dynamic exception specifications are deprecated in C++11" this line is in comment.
 
         // returns number of move made so far
         inline int numberOfMoves() const         {return totalMove;}

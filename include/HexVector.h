@@ -11,6 +11,8 @@
 #include "AbstractHex.h"
 #include <vector>
 #include <iostream>
+#include <ostream>
+#include <fstream>
 
 using std::vector;
 using std::string;
