@@ -41,7 +41,6 @@ namespace HexOguz
         void play() override; 
         void play(Cell) override; 
         Cell operator()(int,int) const override;
-        // bool operator==(AbstractHex&) const override;
 
 
         private:

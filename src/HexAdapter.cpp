@@ -10,16 +10,12 @@ using namespace std;
 template<template<typename...> class T>
 HexAdapter<T>::HexAdapter(): AbstractHex()
 {
-    Welcome();
-    createTable();
     playGame();
 }
 
 template<template<typename...> class T>
 HexAdapter<T>::HexAdapter(int size):  AbstractHex(size)
 {
-    Welcome();
-    createTable();
     playGame();
 }
 

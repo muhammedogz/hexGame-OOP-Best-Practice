@@ -7,15 +7,11 @@ using namespace HexOguz;
 
 HexVector::HexVector(): AbstractHex(0)
 {
-    Welcome();
-    createTable();
     playGame();
 }
 
 HexVector::HexVector(int size): AbstractHex(size)
 {
-    Welcome();
-    createTable();
     playGame();
 }
 
