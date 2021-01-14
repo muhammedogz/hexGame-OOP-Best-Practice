@@ -2,3 +2,5 @@ output
 *.out
 *.vscode/
 try.txt
+readme.txt
+ignoreMe.txt

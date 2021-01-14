@@ -1,5 +1,5 @@
 CC = g++ -std=c++11
-CFLAGS = -Wall -Wextra
+CFLAGS =
 OBJS = src/AbstractHex.cpp src/Cell.cpp src/HexArray1D.cpp src/HexVector.cpp src/HexAdapter.cpp main.cpp
 
 muo: 

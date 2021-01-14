@@ -47,11 +47,12 @@ namespace HexOguz
 } // namespace HexOguz
 
 // Those functions helps menu in Main.
-void main_helper(vector<AbstractHex*> Games, bool select);
-int setSelect(vector<AbstractHex*> Games);
 void checkCinForFail();
-void game_helper(vector<AbstractHex*> Games);
+// Start new game due to selected type
+void newGameStarter(vector<AbstractHex*> Games);
+// Test class functions
 void TestClassFunctions(AbstractHex *testMe);
+// Test Global Function
 void TestGlobalFunction();
 
 int main(void)
@@ -79,14 +80,14 @@ int main(void)
         << "6- Test Global function with 5 different Game Array" << endl
         << "7- Test File Opening Exception" << endl
         << "8- Test Operator() Exception" << endl
-        << "11- Quit" << endl
+        << "9- Quit" << endl
         << endl << "Enter Command: ";
                                                     
         cin >> command;
         checkCinForFail();
 
         if (command == 1)
-            game_helper(Games);
+            newGameStarter(Games);
         else if (command == 2)
             TestClassFunctions(new HexVector(trash));
         else if (command == 3)
@@ -123,6 +124,11 @@ int main(void)
         {
             cout << "Goodbye My friend <3<3 " << endl; break;
         }
+        else
+        {
+            cout << "Invalid" << endl;
+        }
+        
     }
 
 }
@@ -179,21 +185,7 @@ void TestGlobalFunction()
     cout << endl << "Test Over! I hope everthing went well! <3 " << endl;
 }
 
-void main_helper(vector<AbstractHex*> Games, bool select)
-{
-    cout << "There are " << AbstractHex::getActiveGames() << " active games." << endl << "All Games are:" << endl;
-    for (int i = 0; i < AbstractHex::getAllGames(); i++)
-    {
-        if (Games[i]->getGameState() == winner)
-            cout << "game[" << i << "]" << " ->>> ENDED with a winner" << endl; 
-        else
-            cout << "game[" << i << "]" << " -> Still Active" << endl; 
-    }
-    if (select)
-        cout << "Select a game with number: ";
-}
-
-void game_helper(vector<AbstractHex*> Games)
+void newGameStarter(vector<AbstractHex*> Games)
 {
     cout << "Which type of game do you want?" << endl;
    cout << "1- HexVector Class" << endl
@@ -208,30 +200,6 @@ void game_helper(vector<AbstractHex*> Games)
     else if (select == 3) Games.push_back(new HexAdapter<vector>);
     else if (select == 4) Games.push_back(new HexAdapter<deque>);
     else cout << "Invalid" << endl;
-}
-
-int setSelect(vector<AbstractHex*> Games)
-{
-    if (AbstractHex::getActiveGames() == 0)
-    {
-        cout << "There are no active games" << endl; 
-        return -1;
-    }
-    int select;
-    cin >> select;
-    checkCinForFail();
-    if (select >= AbstractHex::getAllGames() || select < 0) 
-    {
-        cout << "invalid" << endl;
-        return -1;
-    }
-    else if (Games[select]->getGameState() == winner)
-    {
-        cout << "This game has ended. " << endl;
-        return -1;
-    }
-    
-    return select;
 }
 
 void checkCinForFail()
