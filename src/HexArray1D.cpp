@@ -15,6 +15,17 @@ HexArray1D::HexArray1D(int size): AbstractHex(size)
     playGame();
 }
 
+HexArray1D::HexArray1D(bool trash): AbstractHex()
+{
+    trash = false; 
+    setSize(6);
+}
+
+HexArray1D::HexArray1D(string filename): AbstractHex()
+{
+    readFromFile(filename);
+}
+
 HexArray1D::~HexArray1D()
 {
     free(hexCells);
@@ -66,6 +77,7 @@ void HexArray1D::reset()
             keepUppercase[i*size+j].setState(dot);
             hexCells[i*size+j].setState(dot);
         }
+    moveLast.setState(dot);
 }
 
 void HexArray1D::createTable()
@@ -85,8 +97,11 @@ void HexArray1D::createTable()
 
 void HexArray1D::deleteTable()
 {
+    if (hexCells != nullptr && keepUppercase != nullptr)
+    {
     free(hexCells);
     free(keepUppercase);
+    }
 }
 
 void HexArray1D::setSize(int size)
@@ -104,10 +119,6 @@ void HexArray1D::readFromFile(string filename) // throw (HexErrorHandler)
 	if(fp.is_open() == false)
         throw (HexErrorHandler("Couldn't open file.\n"));
 
-
-    // keep old gameType 
-    int tempType = gameType;
-
     // read variables from file
 	fp >> gameType >> size  >> turn;
 
@@ -124,6 +135,10 @@ void HexArray1D::readFromFile(string filename) // throw (HexErrorHandler)
             hexCells[i*size+j].setState(temp);
         }
     }
+
+    char temp;
+    fp >> temp >> totalMove;
+    moveLast.setState(temp);
 	
     fp.close();
 
@@ -131,11 +146,6 @@ void HexArray1D::readFromFile(string filename) // throw (HexErrorHandler)
     if (gameType == 2)
         turn = player1;
     cout << "Game Loaded from -> " + filename << endl;
-
-    if (tempType != gameType)
-            cout << "Game Type is changed" << endl;
-        cout << "There is new table" << endl;
-
 }
 
 void HexArray1D::writeToFile(string filename) // throw (HexErrorHandler)
@@ -155,12 +165,17 @@ void HexArray1D::writeToFile(string filename) // throw (HexErrorHandler)
         fp << endl;
     }
 
+    fp << moveLast.getState() << endl;
+    fp << totalMove << endl;
+
 	cout << "Game saved as -> " + filename << endl;
 	fp.close();  return;
 }
 
 Cell HexArray1D::operator()(int column, int row) const
 {
+    if (column > size || row > size || column < 0 || row < 0)
+        throw HexErrorHandler("Out of border ERROR\n");
     return hexCells[column*size+row];
 }
 

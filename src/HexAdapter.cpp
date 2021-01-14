@@ -20,6 +20,22 @@ HexAdapter<T>::HexAdapter(int size):  AbstractHex(size)
 }
 
 template<template<typename...> class T>
+HexAdapter<T>::HexAdapter(bool trash): AbstractHex()
+{
+    trash = false;
+    setSize(6);
+}
+
+template<template<typename...> class T>
+HexAdapter<T>::HexAdapter(string filename): AbstractHex()
+{
+    createTable();
+    readFromFile(filename);
+    setSize(this->size);
+    readFromFile(filename);
+}
+
+template<template<typename...> class T>
 void HexAdapter<T>::print() const
 {
     // these things just showing a beautiful table. 
@@ -47,6 +63,8 @@ void HexAdapter<T>::reset()
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
             hexCells[i][j].setState(dot);
+
+    moveLast.setState(dot);
 }
 
 template<template<typename...> class T>
@@ -78,10 +96,6 @@ void HexAdapter<T>::readFromFile(string filename) // throw (HexErrorHandler)
 	if(fp.is_open() == false)
         throw (HexErrorHandler("Couldn't open file.\n"));
 
-
-    // keep old gameType 
-    int tempType = gameType;
-
     // read variables from file
 	fp >> gameType >> size  >> turn;
 
@@ -103,6 +117,10 @@ void HexAdapter<T>::readFromFile(string filename) // throw (HexErrorHandler)
             hexCells[i][j].setState(temp);
         }
     }
+
+    char temp;
+    fp >> temp >> totalMove;
+    moveLast.setState(temp);
 	
     fp.close();
 
@@ -110,10 +128,6 @@ void HexAdapter<T>::readFromFile(string filename) // throw (HexErrorHandler)
     if (gameType == 2)
         turn = player1;
     cout << "Game Loaded from -> " + filename << endl;
-
-    if (tempType != gameType)
-            cout << "Game Type is changed" << endl;
-        cout << "There is new table" << endl;
 
 }
 
@@ -135,13 +149,18 @@ void HexAdapter<T>::writeToFile(string filename) // throw (HexErrorHandler)
         fp << endl;
     }
 
+    fp << moveLast.getState() << endl;
+    fp << totalMove << endl;
+
 	cout << "Game saved as -> " + filename << endl;
 	fp.close();  return;
 }
 
 template<template<typename...> class T>
-Cell HexAdapter<T>::operator()(int column, int row) const
+Cell HexAdapter<T>::operator()(int column, int row) const 
 {
+    if (column > size || row > size || column < 0 || row < 0)
+        throw HexErrorHandler("Out of border ERROR\n");
     return hexCells[column][row];
 }
 

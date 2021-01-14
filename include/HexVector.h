@@ -25,7 +25,8 @@ namespace HexOguz
         public:
         HexVector();
         HexVector(int);
-
+        HexVector(bool);
+        HexVector(string);
 
         void playGame();
         

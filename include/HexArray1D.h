@@ -23,6 +23,8 @@ namespace HexOguz
         public:
         HexArray1D();
         HexArray1D(int);
+        HexArray1D(bool);
+        HexArray1D(string);
 
         // Big Three Provided
         ~HexArray1D();
@@ -44,8 +46,8 @@ namespace HexOguz
 
 
         private:
-        Cell* hexCells;
-        Cell* keepUppercase;
+        Cell* hexCells = nullptr;
+        Cell* keepUppercase = nullptr;
 
 
         // Check winner Helper Functions.

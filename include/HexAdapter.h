@@ -26,6 +26,8 @@ namespace HexOguz
     public:
         HexAdapter();
         HexAdapter(int);
+        HexAdapter(bool);
+        HexAdapter(string);
 
         void playGame();
         

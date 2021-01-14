@@ -72,7 +72,7 @@ namespace HexOguz
         inline int getGameState() const         {return gameState;}
         inline void setTotalMove(int totalMove) {this->totalMove = totalMove;}
         inline static int getActiveGames()      {return activeGames;}
-        inline static int getAlLGames()         {return allGames;}
+        inline static int getAllGames()         {return allGames;}
         
         
         

@@ -15,6 +15,17 @@ HexVector::HexVector(int size): AbstractHex(size)
     playGame();
 }
 
+HexVector::HexVector(bool trash): AbstractHex()
+{
+    trash = false;
+    setSize(6); 
+}
+
+HexVector::HexVector(string filename): AbstractHex()
+{
+    readFromFile(filename);
+}
+
 void HexVector::print() const
 {
     // these things just showing a beautiful table. 
@@ -41,6 +52,7 @@ void HexVector::reset()
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
             hexCells[i][j].setState(dot);
+    moveLast.setState(dot);
 }
 
 void HexVector::createTable()
@@ -71,10 +83,6 @@ void HexVector::readFromFile(string filename) // throw (HexErrorHandler)
 	if(fp.is_open() == false)
         throw (HexErrorHandler("Couldn't open file.\n"));
 
-
-    // keep old gameType 
-    int tempType = gameType;
-
     // read variables from file
 	fp >> gameType >> size  >> turn;
 
@@ -96,6 +104,10 @@ void HexVector::readFromFile(string filename) // throw (HexErrorHandler)
             hexCells[i][j].setState(temp);
         }
     }
+    
+    char temp;
+    fp >> temp >> totalMove;
+    moveLast.setState(temp);
 	
     fp.close();
 
@@ -104,9 +116,6 @@ void HexVector::readFromFile(string filename) // throw (HexErrorHandler)
         turn = player1;
     cout << "Game Loaded from -> " + filename << endl;
 
-    if (tempType != gameType)
-            cout << "Game Type is changed" << endl;
-        cout << "There is new table" << endl;
 
 }
 
@@ -127,12 +136,18 @@ void HexVector::writeToFile(string filename) // throw (HexErrorHandler)
         fp << endl;
     }
 
+    fp << moveLast.getState() << endl;
+    fp << totalMove << endl;
+
+
 	cout << "Game saved as -> " + filename << endl;
 	fp.close();  return;
 }
 
 Cell HexVector::operator()(int column, int row) const
 {
+    if (column > size || row > size || column < 0 || row < 0)
+        throw HexErrorHandler("Out of border ERROR\n");
     return hexCells[column][row];
 }
 
