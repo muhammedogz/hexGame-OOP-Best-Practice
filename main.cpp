@@ -80,7 +80,8 @@ int main(void)
         << "6- Test Global function with 5 different Game Array" << endl
         << "7- Test File Opening Exception" << endl
         << "8- Test Operator() Exception" << endl
-        << "9- Quit" << endl
+        << "9- Test Operator== with different two class object" << endl
+        << "10- Quit" << endl
         << endl << "Enter Command: ";
                                                     
         cin >> command;
@@ -121,6 +122,19 @@ int main(void)
             }   
         }
         else if (command == 9)
+        {
+            HexAdapter<deque> compare1(trash);
+            HexVector compare2(trash);
+            cout << "Compare two game. One is HexAdapter<vector> Otherone is HexVector" << endl 
+                 << "They are empty. So operator== should return 1. " << endl 
+                 << "result -> " << (compare1==compare2) << endl;
+
+            cout << endl << endl;
+            cout << "Now compare same objects but one of them loaded with a file. So should return 0" << endl;
+            compare1.readFromFile("test/test0.txt");
+            cout << "result -> " << (compare1 == compare2) << endl;
+        }
+        else if (command == 10)
         {
             cout << "Goodbye My friend <3<3 " << endl; break;
         }
